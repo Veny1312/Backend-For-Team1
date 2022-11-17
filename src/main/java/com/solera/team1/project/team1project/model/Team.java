@@ -80,7 +80,10 @@ public class Team {
 	}
 
 	public void removeTask(String id) {
-		this.tasks = tasks.stream().filter(e -> e.getId() != id).collect(Collectors.toList());
+		
+		System.out.println(this.tasks);
+		this.tasks = tasks.stream().filter(e->!(e.getId().equals(id))).collect(Collectors.toList());
+		System.out.println(this.tasks);
 		this.calculateTotalPoints();
 	}
 
