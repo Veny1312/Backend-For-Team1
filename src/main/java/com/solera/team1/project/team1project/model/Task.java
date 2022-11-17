@@ -52,6 +52,17 @@ public long getPoints() {
 public void setPoints(long points) {
 	this.points = points;
 }
+public void updateTask(Task task) {
+	this.setAccomplishment(task.getAccomplishment());
+	this.setPoints(task.getPoints());
+	
+	
+	
+}
+@Override
+public String toString() {
+	return "Task [id=" + id + ", accomplishment=" + accomplishment + ", points=" + points + "]";
+}
 
 
 

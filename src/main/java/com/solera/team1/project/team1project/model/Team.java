@@ -2,6 +2,7 @@ package com.solera.team1.project.team1project.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.GeneratedValue;
@@ -40,8 +41,17 @@ public class Team {
 		this.tasks.add(task);
 		this.calculateTotalPoints();
 	}
-	public void deleteTask(Task task) {
-		this.tasks=tasks.stream().filter(e->e.getId()!=task.getId()).collect(Collectors.toList());
+	public Task getTask(String taskId) {
+		System.out.println(taskId);
+		System.out.println(this.tasks.toString());
+	for(Task task : tasks) {
+		if(task.getId()==taskId) {
+			System.out.println(task);
+			return task;
+		}
+	}
+	return null;
+	
 	}
 
 	public Team(String name) {
@@ -67,7 +77,10 @@ public class Team {
 	public void setId(String id) {
 		this.id = id;
 	}
-
+public void removeTask(String id) {
+	this.tasks=tasks.stream().filter(e->e.getId()!=id).collect(Collectors.toList());
+	this.calculateTotalPoints();
+}
 	public long getTotalPoints() {
 		return totalPoints;
 	}

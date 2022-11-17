@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,19 +58,27 @@ public class TaskController {
 		Optional<Team> team = teamService.findById(teamId);
 		return team.get().getTasks();
 	}
+
 	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/tasks/delete/{taskId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public void deleteTasksById(@PathVariable String taskId) {
 		taskService.delete(taskId);
-		
-		
-	
+
 	}
-	@PatchMapping("/tasks/update/{taskId}")
-	public void updateTask(@PathVariable String taskId,@RequestBody Task task) {
-		taskService.update(task);	
+
+	@PatchMapping("/tasks/update/{teamId}")
+	public void updateTask(@PathVariable String teamId, @RequestBody Task task) {
+		Optional<Team> team = teamService.findById(teamId);
+		Team SelectedTeam=team.get();
+		Task existingTask = SelectedTeam.getTask(task.getId());
 		
+		if (existingTask != null) {
+			System.out.println(existingTask.toString());
+			taskService.update(existingTask);
+		} else
+			System.out.println("ERROR");
+
 	}
 
 }

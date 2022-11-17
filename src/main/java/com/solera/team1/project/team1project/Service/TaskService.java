@@ -37,8 +37,8 @@ public class TaskService implements ITaskService {
 	}
 
 	@Override
-	public Task update(Task team) {
-		return taskRepository.save(team);
+	public Task update(Task task) {
+		return taskRepository.save(task);
 	}
 
 	@Override
