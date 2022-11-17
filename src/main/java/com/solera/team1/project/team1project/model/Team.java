@@ -41,17 +41,18 @@ public class Team {
 		this.tasks.add(task);
 		this.calculateTotalPoints();
 	}
+
 	public Task getTask(String taskId) {
-		System.out.println(taskId);
-		System.out.println(this.tasks.toString());
-	for(Task task : tasks) {
-		if(task.getId()==taskId) {
-			System.out.println(task);
-			return task;
+
+		for (Task task : tasks) {
+
+			if (task.getId().equals(taskId)) {
+
+				return task;
+			}
 		}
-	}
-	return null;
-	
+		return null;
+
 	}
 
 	public Team(String name) {
@@ -77,10 +78,12 @@ public class Team {
 	public void setId(String id) {
 		this.id = id;
 	}
-public void removeTask(String id) {
-	this.tasks=tasks.stream().filter(e->e.getId()!=id).collect(Collectors.toList());
-	this.calculateTotalPoints();
-}
+
+	public void removeTask(String id) {
+		this.tasks = tasks.stream().filter(e -> e.getId() != id).collect(Collectors.toList());
+		this.calculateTotalPoints();
+	}
+
 	public long getTotalPoints() {
 		return totalPoints;
 	}
@@ -114,7 +117,7 @@ public void removeTask(String id) {
 
 	@Override
 	public String toString() {
-		return "Team [id=" + id + ", totalPoints=" + totalPoints + ", tasks=" + tasks.toString() + "]";
+		return "Team [id=" + id + "teamName"+name+"totalPoints=" + totalPoints + ", tasks=" + tasks.toString() + "]";
 	}
 
 }

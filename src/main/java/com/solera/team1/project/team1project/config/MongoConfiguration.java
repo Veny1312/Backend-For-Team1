@@ -7,12 +7,24 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
+@EnableWebMvc
 @Configuration
-public class MongoConfiguration { //extends AbstractMongoClientConfiguration {
 
+public class MongoConfiguration implements WebMvcConfigurer { //extends AbstractMongoClientConfiguration {
+	
+	    public void addCorsMappings(CorsRegistry corsRegistry) {
+	        corsRegistry.addMapping("/**")
+	                .allowedMethods("GET", "POST", "PUT","PATCH");
+	    }
+	 
+	}
 	
 //	@Value("${port}")
 //	private String port;
@@ -34,4 +46,4 @@ public class MongoConfiguration { //extends AbstractMongoClientConfiguration {
 //	public MongoTemplate mongoTemplate(MongoDatabaseFactory databaseFactory, MappingMongoConverter converter) {
 //		return new MongoTemplate(mongoClient(), getDatabaseName());
 //	}
-}
+

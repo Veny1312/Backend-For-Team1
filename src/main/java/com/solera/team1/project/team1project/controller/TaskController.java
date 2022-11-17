@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.solera.team1.project.team1project.Service.ITaskService;
 import com.solera.team1.project.team1project.Service.ITeamService;
+import com.solera.team1.project.team1project.Service.TaskService;
 import com.solera.team1.project.team1project.model.Task;
 import com.solera.team1.project.team1project.model.Team;
 
@@ -66,18 +67,15 @@ public class TaskController {
 		taskService.delete(taskId);
 
 	}
-
-	@PatchMapping("/tasks/update/{teamId}")
-	public void updateTask(@PathVariable String teamId, @RequestBody Task task) {
-		Optional<Team> team = teamService.findById(teamId);
-		Team SelectedTeam=team.get();
-		Task existingTask = SelectedTeam.getTask(task.getId());
-		
-		if (existingTask != null) {
-			System.out.println(existingTask.toString());
-			taskService.update(existingTask);
-		} else
-			System.out.println("ERROR");
+	@CrossOrigin(origins = { "http://localhost:3000", "http://localhost:8080" })
+	@ResponseStatus(code = HttpStatus.OK)
+	@PatchMapping("/tasks/update/{taskId}")
+	public void updateTask(@PathVariable String taskId, @RequestBody Task task) {
+	Optional<Task> currentTask = taskService.findById(taskId);
+	currentTask.get().setAccomplishment(task.getAccomplishment());
+	currentTask.get().setPoints(task.getPoints());
+	taskService.update(currentTask.get());
+	
 
 	}
 

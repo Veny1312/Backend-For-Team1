@@ -55,7 +55,7 @@ public void setPoints(long points) {
 public void updateTask(Task task) {
 	this.setAccomplishment(task.getAccomplishment());
 	this.setPoints(task.getPoints());
-	
+	System.out.println(this.toString());
 	
 	
 }
